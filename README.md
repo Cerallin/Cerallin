@@ -48,7 +48,7 @@ I'm Cerallin.
 
 ## Analysis
 
-[![TopLangs](https://github-readme-stats.vercel.app/api/top-langs/?username=cerallin&layout=compact)](https://github.com/anuraghazra/github-readme-stats)
+[![TopLangs](https://github-readme-stats.vercel.app/api/top-langs/?username=cerallin&layout=compact&hide=shell)](https://github.com/anuraghazra/github-readme-stats)
 
 ![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=cerallin&show_icons=true&bg_color=30,e96443,904e95&title_color=fff&text_color=fff)
 
