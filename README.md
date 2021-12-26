@@ -22,12 +22,6 @@ I'm Cerallin.
 ![VIM](https://img.shields.io/badge/VIM-019733.svg?&style=for-the-badge&logo=vim&logoColor=white)
 ![VS Code](https://img.shields.io/badge/VS_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white)
 
-#### OS
-
-![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
-![OpenWrt](https://img.shields.io/badge/OpenWrt-00B5E2?style=for-the-badge&logo=OpenWrt&logoColor=white)
-![Raspberry Pi](https://img.shields.io/badge/Raspberry%20Pi-A22846?style=for-the-badge&logo=Raspberry%20Pi&logoColor=white)
-
 #### My workspace specs
 
 ![ROG Sephyrus 15](https://img.shields.io/badge/ROG_Sephyrus_15-000000?style=for-the-badge&logo=asus&logoColor=white)
