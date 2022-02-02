@@ -31,7 +31,8 @@ I'm Cerallin.
 #### Games I'm playing
 
 ![MineCraft](https://img.shields.io/badge/MineCraft-107C10?style=for-the-badge&logo=xbox&logoColor=white)
-![Pokémon](https://img.shields.io/badge/Pokémon-D12228?style=for-the-badge&logo=nintendo-3ds&logoColor=white)
+![Let's Go Eevee!](https://img.shields.io/badge/Let's_Go_Eevee!-D68222?style=for-the-badge&logo=nintendo-switch&logoColor=white)
+![Pokémon Legends: Arceus](https://img.shields.io/badge/Pokémon_Legends:_Arceus-09569a?style=for-the-badge&logo=nintendo-switch&logoColor=white)
 
 #### Music
 
