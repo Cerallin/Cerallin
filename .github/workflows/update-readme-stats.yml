@@ -31,14 +31,11 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Generate trophy
-        uses: Erik-Donath/github-profile-trophy@feature/generate-svg
+        uses: soulteary/github-profile-trophy-action@v1.0.0
         with:
-          username: ${{ github.repository_owner }}
-          output_path: ./trophy.svg
+          options: username=${{ github.repository_owner }}
+          path: profile/trophy.svg
           token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Move trophy to profile
-        run: mv trophy.svg profile/trophy.svg
 
       - name: Commit SVG cards
         run: |
