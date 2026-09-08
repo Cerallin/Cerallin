@@ -14,13 +14,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # GITHUB_TOKEN 无法读取 repositories.stargazers（会 403），stats/trophy 必须用 PAT
       - name: Generate stats card
         uses: readme-tools/github-readme-stats-action@v1
         with:
           card: stats
           options: username=${{ github.repository_owner }}&show_icons=true&bg_color=30,e96443,904e95&title_color=fff&text_color=fff
           path: profile/stats.svg
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_PAT }}
 
       - name: Generate top languages card
         uses: readme-tools/github-readme-stats-action@v1
@@ -28,14 +29,14 @@ jobs:
           card: top-langs
           options: username=${{ github.repository_owner }}&layout=compact&langs_count=6&hide=HTML,pug,stylus,TeX,php
           path: profile/top-langs.svg
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_PAT }}
 
       - name: Generate trophy
         uses: soulteary/github-profile-trophy-action@v1.0.0
         with:
           options: username=${{ github.repository_owner }}
           path: profile/trophy.svg
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_PAT }}
 
       - name: Commit SVG cards
         run: |
