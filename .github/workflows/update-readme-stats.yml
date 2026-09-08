@@ -14,7 +14,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # GITHUB_TOKEN 无法读取 repositories.stargazers（会 403），stats/trophy 必须用 PAT
+      # GITHUB_TOKEN 无法读取 repositories.stargazers（会 403）。
+      # secrets.GH_PAT 为空时 action 会静默回退到 GITHUB_TOKEN，因此这里显式校验。
+      - name: Require GH_PAT secret
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          if [ -z "$GH_PAT" ]; then
+            echo "::error::Missing repository secret GH_PAT."
+            echo "Create a classic PAT with read:user (add repo for private contributions),"
+            echo "then add it as Actions secret named GH_PAT and re-run this workflow."
+            exit 1
+          fi
+
       - name: Generate stats card
         uses: readme-tools/github-readme-stats-action@v1
         with:
@@ -37,6 +49,22 @@ jobs:
           options: username=${{ github.repository_owner }}
           path: profile/trophy.svg
           token: ${{ secrets.GH_PAT }}
+
+      - name: Verify generated SVGs
+        run: |
+          failed=0
+          for f in profile/stats.svg profile/top-langs.svg profile/trophy.svg; do
+            if ! test -s "$f"; then
+              echo "::error::$f is missing or empty"
+              failed=1
+              continue
+            fi
+            if grep -Eq "Something went wrong|Resource not accessible by integration|Failed to fetch user info" "$f"; then
+              echo "::error::$f still contains an error card; check that GH_PAT is a valid classic PAT with read:user"
+              failed=1
+            fi
+          done
+          exit "$failed"
 
       - name: Commit SVG cards
         run: |
