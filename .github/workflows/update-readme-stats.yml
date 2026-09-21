@@ -12,43 +12,35 @@ jobs:
       contents: write
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      # GITHUB_TOKEN 无法读取 repositories.stargazers（会 403）。
-      # secrets.GH_PAT 为空时 action 会静默回退到 GITHUB_TOKEN，因此这里显式校验。
-      - name: Require GH_PAT secret
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
-        run: |
-          if [ -z "$GH_PAT" ]; then
-            echo "::error::Missing repository secret GH_PAT."
-            echo "Create a classic PAT with read:user (add repo for private contributions),"
-            echo "then add it as Actions secret named GH_PAT and re-run this workflow."
-            exit 1
-          fi
-
+      # GITHUB_TOKEN 可用：stats-extended / trophy(master) 已改用 stargazerCount，
+      # 不再查询会被安装类 token 拒绝的 repositories.stargazers 连接。
       - name: Generate stats card
-        uses: readme-tools/github-readme-stats-action@v1
+        uses: stats-organization/github-readme-stats-action@v2
         with:
           card: stats
           options: username=${{ github.repository_owner }}&show_icons=true&bg_color=30,e96443,904e95&title_color=fff&text_color=fff
           path: profile/stats.svg
-          token: ${{ secrets.GH_PAT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fail_on_error: true
 
       - name: Generate top languages card
-        uses: readme-tools/github-readme-stats-action@v1
+        uses: stats-organization/github-readme-stats-action@v2
         with:
           card: top-langs
           options: username=${{ github.repository_owner }}&layout=compact&langs_count=6&hide=HTML,pug,stylus,TeX,php
           path: profile/top-langs.svg
-          token: ${{ secrets.GH_PAT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fail_on_error: true
 
+      # 钉在含 stargazerCount 修复的 master（0dbd570+）；v1.0 标签仍会 403。
       - name: Generate trophy
-        uses: soulteary/github-profile-trophy-action@v1.0.0
+        uses: ryo-ma/github-profile-trophy@e3c89df995e92e67cdd4b2acaab9d974583dc1f7 # master
         with:
-          options: username=${{ github.repository_owner }}
-          path: profile/trophy.svg
-          token: ${{ secrets.GH_PAT }}
+          username: ${{ github.repository_owner }}
+          output_path: profile/trophy.svg
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Verify generated SVGs
         run: |
@@ -60,7 +52,7 @@ jobs:
               continue
             fi
             if grep -Eq "Something went wrong|Resource not accessible by integration|Failed to fetch user info" "$f"; then
-              echo "::error::$f still contains an error card; check that GH_PAT is a valid classic PAT with read:user"
+              echo "::error::$f still contains an error card"
               failed=1
             fi
           done
